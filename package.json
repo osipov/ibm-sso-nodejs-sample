@@ -1,0 +1,13 @@
+{
+	"dependencies": {
+		"express": "4.x",
+		"express-session": "1.0.2",		
+		"body-parser": "1.0.1",
+		"cookie-parser": "1.0.1",
+
+		"passport": "0.2.0",
+		"passport-oauth": "1.0.0",
+		
+		"passport-ibmid-oauth2": "0.0.4"
+	}
+}
