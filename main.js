@@ -28,8 +28,8 @@ var port = (process.env.VCAP_APP_PORT || 8192);
 var host = (process.env.VCAP_APP_HOST || 'localhost');
 var url = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["' + 'https://' + host + ':' + port + '"]}').uris[0] 
 
-var SSO_CLIENT_ID = '0goLBmZlbPW3yFfS9y9Y';
-var SSO_CLIENT_SECRET = '6bniUaU3SASKGTbJ3Qr3';
+var SSO_CLIENT_ID = '';
+var SSO_CLIENT_SECRET = '';
 
 var randomString = function() { return Math.random().toString(36).substring(5); }
 var oauthState = randomString();
