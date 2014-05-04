@@ -28,11 +28,8 @@ var port = (process.env.VCAP_APP_PORT || 8192);
 var host = (process.env.VCAP_APP_HOST || 'localhost');
 var url = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["' + 'https://' + host + ':' + port + '"]}').uris[0] 
 
-var SSO_CLIENT_ID = '';
-var SSO_CLIENT_SECRET = '';
-
-var randomString = function() { return Math.random().toString(36).substring(5); }
-var oauthState = randomString();
+var SSO_CLIENT_ID = ' ';
+var SSO_CLIENT_SECRET = ' ';
 
 var IbmIdStrategy = require('passport-ibmid-oauth2').Strategy;
 passport.use('ibmid', new IbmIdStrategy({
@@ -47,19 +44,11 @@ passport.use('ibmid', new IbmIdStrategy({
   }
 ));
 
-app.get('/auth/ibmid', passport.authenticate('ibmid', { state: oauthState, scope: ['profile']}), function(req, res) {
+app.get('/auth/ibmid', passport.authenticate('ibmid', { scope: ['profile'] }), function(req, res) {
 });
 
-app.get('/auth/ibmid/callback', passport.authenticate('ibmid', {
-   /*successRedirect: '/private',*/
-   failureRedirect: '/error',
-   scope: ['profile']
-}), function(req, res) {
-    //validate OAuth2 state variable
-    if (oauthState != req.query.state) 
-      res.redirect('/error');
-    else
-      res.redirect('/private')
+app.get('/auth/ibmid/callback', passport.authenticate('ibmid', { failureRedirect: '/error', scope: ['profile'] }), function(req, res) {
+  res.redirect('/private')
 });        
 
 function authenticate() {
