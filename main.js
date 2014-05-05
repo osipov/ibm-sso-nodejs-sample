@@ -28,8 +28,8 @@ var port = (process.env.VCAP_APP_PORT || 8192);
 var host = (process.env.VCAP_APP_HOST || 'localhost');
 var url = JSON.parse(process.env.VCAP_APPLICATION || '{"uris":["' + 'https://' + host + ':' + port + '"]}').uris[0] 
 
-var SSO_CLIENT_ID = ' ';
-var SSO_CLIENT_SECRET = ' ';
+var SSO_CLIENT_ID = (process.env.SSO_CLIENT_ID || ' ');
+var SSO_CLIENT_SECRET = (process.env.SSO_CLIENT_SECRET || ' ');
 
 var IbmIdStrategy = require('passport-ibmid-oauth2').Strategy;
 passport.use('ibmid', new IbmIdStrategy({
