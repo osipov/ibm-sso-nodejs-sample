@@ -44,16 +44,17 @@ passport.use('ibmid', new IbmIdStrategy({
   }
 ));
 
-app.get('/auth/ibmid', passport.authenticate('ibmid', { scope: ['profile'] }), function(req, res) {
-});
+app.get('/auth/ibmid', passport.authenticate('ibmid', { scope: ['profile'] }), function(req, res) {});
 
 app.get('/auth/ibmid/callback', passport.authenticate('ibmid', { failureRedirect: '/error', scope: ['profile'] }), function(req, res) {
-  res.redirect('/private')
+  res.redirect(req.session.originalUrl || '/');
+  delete req.session.originalUrl;
 });        
 
 function authenticate() {
   return function(req, res, next) {
     if (!req.isAuthenticated() || req.session.ibmid == undefined)
+      req.session.originalUrl = req.originalUrl;
       res.redirect('/auth/ibmid');
     else
       next();
