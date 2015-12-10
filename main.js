@@ -53,10 +53,10 @@ app.get('/auth/ibmid/callback', passport.authenticate('ibmid', { failureRedirect
 
 function authenticate() {
   return function(req, res, next) {
-    if (!req.isAuthenticated() || req.session.ibmid == undefined)
+    if (!req.isAuthenticated() || req.session.ibmid == undefined) {
       req.session.originalUrl = req.originalUrl;
       res.redirect('/auth/ibmid');
-    else
+    } else
       next();
   }
 }
